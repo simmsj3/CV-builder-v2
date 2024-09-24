@@ -42,3 +42,13 @@ body {
     max-height: 500px;
     opacity: 1;
 }
+
+.award {
+    background-color: #ffd700;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 15px;
+    display: inline-block;
+    margin: 5px;
+    font-weight: bold;
+}
