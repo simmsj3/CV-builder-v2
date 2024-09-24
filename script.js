@@ -51,16 +51,17 @@ skillData["Personal Development"] = {
     explanation: "Personal development activities show your dedication to improving yourself and staying updated in your field."
 };
 
-// Component for displaying progress
+// Component for displaying a progress bar with enhanced visuals
 function ProgressBar({ completed, total }) {
     const percentage = (completed / total) * 100;
+
     return (
-        <div className="w-full bg-gray-300 rounded-full h-4">
+        <div className="progress-bar-container">
             <div
-                className="bg-blue-500 h-4 rounded-full transition-all"
+                className="progress-bar"
                 style={{ width: `${percentage}%` }}
             ></div>
-            <p className="text-sm text-center mt-1">{Math.floor(percentage)}% completed</p>
+            <p className="progress-bar-text">{Math.floor(percentage)}% completed</p>
         </div>
     );
 }
@@ -91,10 +92,10 @@ function Task({ name, points, url, onComplete }) {
                 </div>
                 {!isCompleted ? (
                     <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                        className="complete-task-btn"
                         onClick={handleComplete}
                     >
-                        Complete Task
+                        +
                     </button>
                 ) : (
                     <span className="bg-yellow-400 text-black px-2 py-1 rounded-full">✔️ Completed!</span>
@@ -114,8 +115,11 @@ function SkillCategory({ title, data, onTaskComplete }) {
     };
 
     return (
-        <div className="mb-6 p-4 bg-white shadow-lg rounded-lg">
-            <h3 className="text-xl font-bold mb-3">{title}</h3>
+        <div className="skill-category">
+            <div className="skill-category-title">
+                <i className="skill-category-title-icon">📘</i>
+                <h3 className="text-xl font-bold mb-3">{title}</h3>
+            </div>
             <p className="mb-3">{data.explanation}</p>
             {data.items.map((task, index) => (
                 <Task key={index} {...task} onComplete={handleTaskComplete} />
