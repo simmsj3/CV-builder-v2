@@ -285,7 +285,7 @@ const SkillTree = () => {
         skills[skillTitle].availableYears.includes(currentYear)
     );
 
-console.log("Current skills state:", skills);
+    console.log("Current skills state:", skills);
     console.log("Total points:", totalPoints);
     console.log("Current level:", level);
 
