@@ -1,7 +1,6 @@
 console.log("Script is running");
 
 const { useState, useEffect } = React;
-const { motion, AnimatePresence } = framerMotion;
 
 const skillData = {
     "Professional Presence": {
@@ -98,18 +97,8 @@ const Modal = ({ isOpen, onClose, onSubmit, skillTitle, itemName }) => {
     if (!isOpen) return null;
 
     return (
-        <motion.div 
-            className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-        >
-            <motion.div 
-                className="bg-white p-6 rounded-lg"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-            >
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white p-6 rounded-lg">
                 <h3 className="text-lg font-bold mb-4">Add Entry for {itemName}</h3>
                 <input
                     type="text"
@@ -136,8 +125,8 @@ const Modal = ({ isOpen, onClose, onSubmit, skillTitle, itemName }) => {
                         Add Entry
                     </button>
                 </div>
-            </motion.div>
-        </motion.div>
+            </div>
+        </div>
     );
 };
 
@@ -154,12 +143,7 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
     };
 
     return (
-        <motion.div 
-            className="p-4 border rounded-lg bg-white shadow-md"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-        >
+        <div className="p-4 border rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-lg">
             <h3 className="font-bold text-lg mb-3">{title}</h3>
             <button 
                 onClick={() => setShowExplanation(!showExplanation)}
@@ -167,18 +151,11 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
             >
                 {showExplanation ? 'Hide' : 'Show'} Explanation
             </button>
-            <AnimatePresence>
-                {showExplanation && (
-                    <motion.p 
-                        className="text-sm mb-3"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                    >
-                        {explanation}
-                    </motion.p>
-                )}
-            </AnimatePresence>
+            {showExplanation && (
+                <p className="text-sm mb-3 transition-all duration-300">
+                    {explanation}
+                </p>
+            )}
             <ul className="text-sm text-gray-600 space-y-4">
                 {items.map((item, index) => {
                     const daysSinceLastEntry = getDaysSinceLastEntry(entries[item.name]);
@@ -207,7 +184,7 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
                                 </button>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
-                                <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progress * 100}%` }}></div>
+                                <div className="bg-blue-600 h-2.5 rounded-full transition-all duration-300" style={{ width: `${progress * 100}%` }}></div>
                             </div>
                             {isOverdue && (
                                 <span className="text-red-500 text-xs">
@@ -229,18 +206,16 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
                     );
                 })}
             </ul>
-            <AnimatePresence>
-                {modalOpen && (
-                    <Modal 
-                        isOpen={modalOpen} 
-                        onClose={() => setModalOpen(false)} 
-                        onSubmit={onAddEntry}
-                        skillTitle={title}
-                        itemName={selectedItem}
-                    />
-                )}
-            </AnimatePresence>
-        </motion.div>
+            {modalOpen && (
+                <Modal 
+                    isOpen={modalOpen} 
+                    onClose={() => setModalOpen(false)} 
+                    onSubmit={onAddEntry}
+                    skillTitle={title}
+                    itemName={selectedItem}
+                />
+            )}
+        </div>
     );
 };
 
@@ -310,11 +285,11 @@ const SkillTree = () => {
         skills[skillTitle].availableYears.includes(currentYear)
     );
 
-    console.log("Current skills state:", skills);
+console.log("Current skills state:", skills);
     console.log("Total points:", totalPoints);
     console.log("Current level:", level);
 
-return (
+    return (
         <div className="p-6 max-w-6xl mx-auto bg-gray-100 shadow-lg rounded-xl">
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-3xl font-bold text-blue-600">Biochemistry CV Skill Tree</h2>
