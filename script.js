@@ -4,18 +4,19 @@ const { useState, useEffect } = React;
 
 const skillData = {
     "Professional Presence": {
-        availableYears: [1, 2],
+        availableYears: [1, 2, 3, 4],
         items: [
             { name: "Set up LinkedIn profile", points: 20, url: "https://www.aston.ac.uk/careers/cv/resource-library" },
+            { name: "Create professional email", points: 10 }
         ],
         explanation: "A strong professional online presence showcases your seriousness about your career. LinkedIn allows you to connect with professionals, alumni, and potential employers."
     },
     "Academic Engagement": {
         availableYears: [1, 2, 3, 4],
         items: [
+            { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
             { name: "Attend departmental seminars", points: 15 },
             { name: "Participate in peer mentoring (2nd year)", points: 40 }
-             { name: "Take on a leadership role", points: 50 }
         ],
         explanation: "Engaging in academic activities beyond coursework shows genuine interest in your field and a proactive approach to learning."
     },
@@ -29,19 +30,20 @@ const skillData = {
         explanation: "Work experience and volunteering develop professional skills and demonstrate responsibility and community engagement."
     },
     "Extracurricular Activities": {
-        availableYears: [1, 2],
+        availableYears: [1, 2, 3, 4],
         items: [
             { name: "Join BioSoc or other relevant society", points: 25, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
-                   ],
-        explanation: "Joining relevant societies helps you network with peers and develop skills specific to your field. Joining BioSoc should be the minimum you should consider"
+            { name: "Take on a leadership role", points: 50 }
+        ],
+        explanation: "Joining relevant societies helps you network with peers and develop skills specific to your field."
     },
     "Skills Development": {
         availableYears: [1, 2, 3, 4],
         items: [
-            { name: "Improve top 10 in-demand skills (e.g. Excel, R, Python)", points: 40 },
+            { name: "Improve top 10 in-demand skills (list to be updated)", points: 40 },
             { name: "Take online course (e.g., bioinformatics)", points: 30 }
         ],
-        explanation: "Developing skills that are in high demand by employers increases your employability. APBI and other professional bodies often release reports describing the needs for biologists to increase their computational skills"
+        explanation: "Developing skills that are in high demand by employers increases your employability."
     },
     "External Events": {
         availableYears: [1, 2, 3, 4],
@@ -96,6 +98,14 @@ const checkForAwards = (totalPoints) => {
     return awards.filter(award => totalPoints >= award.points);
 };
 
+const getColorForSkill = (items) => {
+    const totalPossiblePoints = items.reduce((sum, item) => sum + item.points, 0);
+    if (totalPossiblePoints >= 100) return 'bg-red-100';
+    if (totalPossiblePoints >= 75) return 'bg-orange-100';
+    if (totalPossiblePoints >= 50) return 'bg-yellow-100';
+    return 'bg-green-100';
+};
+
 const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entries, currentYear }) => {
     const [showExplanation, setShowExplanation] = useState(false);
 
@@ -106,8 +116,10 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
         return Math.floor((today - lastEntryDate) / (1000 * 60 * 60 * 24));
     };
 
+    const nodeColor = getColorForSkill(items);
+
     return (
-        <div className="skill-node p-4 border rounded-lg bg-white shadow-md">
+        <div className={`skill-node p-4 border rounded-lg shadow-md ${nodeColor}`}>
             <h3 className="font-bold text-lg mb-3">{title}</h3>
             <button 
                 onClick={() => setShowExplanation(!showExplanation)}
