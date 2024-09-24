@@ -14,8 +14,7 @@ const skillData = {
     "Academic Engagement": {
         availableYears: [1, 2, 3, 4],
         items: [
-            { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
-            { name: "Attend departmental seminars", points: 15 },
+                    { name: "Attend departmental seminars", points: 15 },
             { name: "Participate in peer mentoring (2nd year)", points: 40 }
         ],
         explanation: "Engaging in academic activities beyond coursework shows genuine interest in your field and a proactive approach to learning."
@@ -23,10 +22,11 @@ const skillData = {
     "Extracurricular Activities": {
         availableYears: [1, 2, 3, 4],
         items: [
+             { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
             { name: "Join a university club/society", points: 25, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
             { name: "Take on a leadership role", points: 50 }
         ],
-        explanation: "Extracurricular activities develop soft skills like teamwork, communication, and time management. Leadership roles provide valuable experience in organizing and managing people and projects."
+        explanation: "Extracurricular activities develop soft skills like teamwork, communication, and time management. Leadership roles provide valuable experience in organizing and managing people and projects. Ideally, you should consider joining BioSoc as a minimum in this category. Biochemical Society provide free events for student members and also provide pots of money to apply for different things. Well worth it!"
     },
     "Work Experience": {
         availableYears: [1, 2, 3, 4],
