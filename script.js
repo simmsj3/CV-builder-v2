@@ -1,5 +1,4 @@
-const { useState } = React;
-const { Briefcase, GraduationCap, Users, HeartHandshake, Dna, Globe, Presentation, Trophy, ChevronLeft, ChevronRight, RotateCcw, Plus, X } = lucide;
+const { useState, useEffect } = React;
 
 const skillsByYear = {
     1: ['Professional Presence', 'Academic Engagement', 'Extracurricular Activities'],
@@ -14,7 +13,7 @@ const initialSkills = {
             { name: 'Set up LinkedIn profile', points: 20, entries: [] },
             { name: 'Create professional email', points: 10, entries: [] }
         ], 
-        icon: Briefcase, 
+        icon: 'briefcase', 
         totalPoints: 0 
     },
     'Academic Engagement': { 
@@ -23,7 +22,7 @@ const initialSkills = {
             { name: 'Attend departmental seminars', points: 15, entries: [] },
             { name: 'Participate in peer mentoring (2nd year)', points: 40, entries: [] }
         ], 
-        icon: GraduationCap, 
+        icon: 'graduation-cap', 
         totalPoints: 0 
     },
     'Extracurricular Activities': { 
@@ -31,7 +30,7 @@ const initialSkills = {
             { name: 'Join a university club/society', points: 25, entries: [] },
             { name: 'Take on a leadership role', points: 50, entries: [] }
         ], 
-        icon: Users, 
+        icon: 'users', 
         totalPoints: 0 
     },
     'Work Experience': { 
@@ -39,7 +38,7 @@ const initialSkills = {
             { name: 'Find part-time job', points: 40, entries: [] },
             { name: 'Explore summer internships', points: 60, entries: [] }
         ], 
-        icon: Briefcase, 
+        icon: 'briefcase', 
         totalPoints: 0 
     },
     'Volunteering': { 
@@ -47,7 +46,7 @@ const initialSkills = {
             { name: 'Volunteer in hospitals/clinics/labs', points: 50, entries: [] },
             { name: 'Participate in science outreach', points: 35, entries: [] }
         ], 
-        icon: HeartHandshake, 
+        icon: 'heart-handshake', 
         totalPoints: 0 
     },
     'Skills Development': { 
@@ -55,7 +54,7 @@ const initialSkills = {
             { name: 'Take online course (e.g., bioinformatics)', points: 30, entries: [] },
             { name: 'Improve computer skills (Excel, R, Python)', points: 40, entries: [] }
         ], 
-        icon: Dna, 
+        icon: 'dna', 
         totalPoints: 0 
     },
     'Networking': { 
@@ -63,7 +62,7 @@ const initialSkills = {
             { name: 'Attend career fairs', points: 20, entries: [] },
             { name: 'Connect with alumni', points: 25, entries: [] }
         ], 
-        icon: Globe, 
+        icon: 'globe', 
         totalPoints: 0 
     },
     'Personal Projects': { 
@@ -71,7 +70,7 @@ const initialSkills = {
             { name: 'Start a science blog', points: 45, entries: [] },
             { name: 'Develop small research project', points: 70, entries: [] }
         ], 
-        icon: Presentation, 
+        icon: 'presentation', 
         totalPoints: 0 
     },
     'Professional Development': { 
@@ -79,7 +78,7 @@ const initialSkills = {
             { name: 'Attend CV writing workshop', points: 25, entries: [] },
             { name: 'Participate in mock interviews', points: 35, entries: [] }
         ], 
-        icon: Trophy, 
+        icon: 'trophy', 
         totalPoints: 0 
     }
 };
@@ -124,14 +123,18 @@ const Modal = ({ isOpen, onClose, onSubmit, skillTitle, itemName }) => {
     );
 };
 
-const SkillNode = ({ title, items, icon: Icon, onAddEntry, onRemoveEntry }) => {
+const SkillNode = ({ title, items, icon, onAddEntry, onRemoveEntry }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+
+    useEffect(() => {
+        lucide.createIcons();
+    }, []);
 
     return (
         <div className="p-4 border rounded-lg bg-white shadow-md">
             <div className="flex items-center space-x-3 mb-3">
-                <Icon className="text-blue-600" size={24} />
+                <i data-lucide={icon} className="text-blue-600"></i>
                 <h3 className="font-bold text-lg">{title}</h3>
             </div>
             <ul className="text-sm text-gray-600 space-y-4">
@@ -146,7 +149,7 @@ const SkillNode = ({ title, items, icon: Icon, onAddEntry, onRemoveEntry }) => {
                                 }} 
                                 className="bg-green-500 text-white p-1 rounded-full"
                             >
-                                <Plus size={16} />
+                                <i data-lucide="plus"></i>
                             </button>
                         </div>
                         {item.entries.map((entry, entryIndex) => (
@@ -156,7 +159,7 @@ const SkillNode = ({ title, items, icon: Icon, onAddEntry, onRemoveEntry }) => {
                                     onClick={() => onRemoveEntry(title, index, entryIndex)} 
                                     className="text-red-500"
                                 >
-                                    <X size={16} />
+                                    <i data-lucide="x"></i>
                                 </button>
                             </div>
                         ))}
@@ -178,6 +181,10 @@ const SkillTree = () => {
     const [currentYear, setCurrentYear] = useState(1);
     const [skills, setSkills] = useState(initialSkills);
     const [totalPoints, setTotalPoints] = useState(0);
+
+    useEffect(() => {
+        lucide.createIcons();
+    }, []);
 
     const resetProgress = () => {
         setSkills(initialSkills);
@@ -217,14 +224,14 @@ const SkillTree = () => {
                 <h2 className="text-3xl font-bold text-blue-600">Biochemistry CV Skill Tree</h2>
                 <div className="flex items-center space-x-4">
                     <button onClick={() => setCurrentYear(prev => Math.max(1, prev - 1))} disabled={currentYear === 1}>
-                        <ChevronLeft size={24} />
+                        <i data-lucide="chevron-left"></i>
                     </button>
                     <span className="text-xl font-semibold">Year {currentYear}</span>
                     <button onClick={() => setCurrentYear(prev => Math.min(4, prev + 1))} disabled={currentYear === 4}>
-                        <ChevronRight size={24} />
+                        <i data-lucide="chevron-right"></i>
                     </button>
                     <button onClick={resetProgress} className="ml-4 p-2 bg-red-500 text-white rounded-full">
-                        <RotateCcw size={20} />
+                        <i data-lucide="rotate-ccw"></i>
                     </button>
                 </div>
             </div>
