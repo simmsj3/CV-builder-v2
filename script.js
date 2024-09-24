@@ -3,92 +3,100 @@ console.log("Script is running");
 const { useState, useEffect } = React;
 
 const skillData = {
-    "Professional Presence": {
-        availableYears: [1, 2, 3, 4],
-        items: [
-            { name: "Set up LinkedIn profile", points: 20, url: "https://www.aston.ac.uk/careers/cv/resource-library" },
-            { name: "Create professional email", points: 10 }
-        ],
-        explanation: "A strong professional online presence showcases your seriousness about your career. LinkedIn allows you to connect with professionals, alumni, and potential employers."
-    },
-    "Academic Engagement": {
-        availableYears: [1, 2, 3, 4],
-        items: [
-            { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
-            { name: "Attend departmental seminars", points: 15 },
-            { name: "Participate in peer mentoring (2nd year)", points: 40 }
-        ],
-        explanation: "Engaging in academic activities beyond coursework shows genuine interest in your field and a proactive approach to learning."
-    },
-    "Extracurricular Activities": {
-        availableYears: [1, 2, 3, 4],
-        items: [
-            { name: "Join a university club/society", points: 25, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
-            { name: "Take on a leadership role", points: 50 }
-        ],
-        explanation: "Extracurricular activities develop soft skills like teamwork, communication, and time management. Leadership roles provide valuable experience in organizing and managing people and projects."
-    },
-    "Work Experience": {
-        availableYears: [1, 2, 3, 4],
-        items: [
-            { name: "Find part-time job", points: 40, url: "https://www.aston.ac.uk/careers/get-experience/part-time-jobs-and-volunteering" },
-            { name: "Explore summer internships", points: 60, url: "https://www.aston.ac.uk/careers/get-experience/internships" }
-        ],
-        explanation: "Work experience, even if not directly related to biochemistry, develops professional skills and demonstrates responsibility and time management."
-    },
-    "Volunteering": {
-        availableYears: [1, 2, 3, 4],
-        items: [
-            { name: "Volunteer in hospitals/clinics/labs", points: 50, url: "https://www.aston.ac.uk/careers/get-experience/part-time-jobs-and-volunteering" },
-            { name: "Participate in science outreach", points: 35 }
-        ],
-        explanation: "Volunteering shows commitment to your community and your field. It can provide hands-on experience in scientific or healthcare settings."
-    },
-    "Skills Development": {
-        availableYears: [1, 2, 3, 4],
-        items: [
-            { name: "Take online course (e.g., bioinformatics)", points: 30 },
-            { name: "Improve computer skills (Excel, R, Python)", points: 40 }
-        ],
-        explanation: "Developing technical skills beyond those taught in your courses makes you more versatile and valuable to potential employers."
-    },
-    "Networking": {
-        availableYears: [1, 2, 3, 4],
-        items: [
-            { name: "Attend career fairs", points: 20, url: "https://www.aston.ac.uk/careers/find-a-job/researching-employers" },
-            { name: "Connect with alumni", points: 25 }
-        ],
-        explanation: "Building a professional network early can lead to opportunities later. It also helps you learn about different career paths in biochemistry."
-    },
-    "Personal Projects": {
-        availableYears: [2, 3, 4],
-        items: [
-            { name: "Start a science blog", points: 45 },
-            { name: "Develop small research project", points: 70 }
-        ],
-        explanation: "Personal projects showcase your initiative, creativity, and genuine interest in biochemistry beyond coursework."
-    },
-    "Professional Development": {
-        availableYears: [1, 2, 3, 4],
-        items: [
-            { name: "Attend CV writing workshop", points: 25, url: "https://www.aston.ac.uk/careers/cv" },
-            { name: "Participate in mock interviews", points: 35, url: "https://www.aston.ac.uk/careers/cv" }
-        ],
-        explanation: "These activities help you present yourself more effectively to potential employers."
-    },
-    "Placement Preparation": {
-        availableYears: [1, 2, 3, 4],
-        items: [
-            { name: "Attend placement information session", points: 30, url: "https://www.aston.ac.uk/careers/placements" },
-            { name: "Contact Careers and Placements team", points: 20, url: "https://www.aston.ac.uk/careers/contact-us", periodic: true, periodDays: 90 },
-            { name: "Search for placement opportunities", points: 40, url: "https://www.aston.ac.uk/careers/placements", periodic: true, periodDays: 30 },
-            { name: "Attend employer presentation", points: 25 }
-        ],
-        explanation: "Preparing for your placement year is crucial. Regular engagement with the Careers and Placements team and consistent searching for opportunities will greatly enhance your chances of securing a valuable placement."
-    }
+  "Professional Presence": {
+    availableYears: [1, 2, 3, 4],
+    items: [
+      { name: "Set up LinkedIn profile", points: 20, url: "https://www.aston.ac.uk/careers/cv/resource-library" },
+      { name: "Create professional email", points: 10 }
+    ],
+    explanation: "A strong professional online presence showcases your seriousness about your career. LinkedIn allows you to connect with professionals, alumni, and potential employers."
+  },
+  "Academic Engagement": {
+    availableYears: [1, 2, 3, 4],
+    items: [
+      { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
+      { name: "Attend departmental seminars", points: 15 },
+      { name: "Participate in peer mentoring (2nd year)", points: 40 }
+    ],
+    explanation: "Engaging in academic activities beyond coursework shows genuine interest in your field and a proactive approach to learning."
+  },
+  "Work Experience": {
+    availableYears: [1, 2, 3, 4],
+    items: [
+      { name: "Find part-time job", points: 40, url: "https://www.aston.ac.uk/careers/get-experience/part-time-jobs-and-volunteering" },
+      { name: "Explore summer internships", points: 60, url: "https://www.aston.ac.uk/careers/get-experience/internships" },
+      { name: "Volunteer in a community project, charity or organization", points: 50 }
+    ],
+    explanation: "Work experience and volunteering develop professional skills and demonstrate responsibility and community engagement."
+  },
+  "Extracurricular Activities": {
+    availableYears: [1, 2, 3, 4],
+    items: [
+      { name: "Join BioSoc or other relevant society", points: 25, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
+      { name: "Take on a leadership role", points: 50 }
+    ],
+    explanation: "Joining relevant societies helps you network with peers and develop skills specific to your field."
+  },
+  "Skills Development": {
+    availableYears: [1, 2, 3, 4],
+    items: [
+      { name: "Improve top 10 in-demand skills (list to be updated)", points: 40 },
+      { name: "Take online course (e.g., bioinformatics)", points: 30 }
+    ],
+    explanation: "Developing skills that are in high demand by employers increases your employability."
+  },
+  "External Events": {
+    availableYears: [1, 2, 3, 4],
+    items: [
+      { name: "Attend networking event", points: 20 },
+      { name: "Attend seminar or inaugural professorial talk", points: 15 }
+    ],
+    explanation: "Attending events outside your curriculum broadens your knowledge and professional network."
+  },
+  "Networking": {
+    availableYears: [1, 2, 3, 4],
+    items: [
+      { name: "Attend career fairs", points: 20, url: "https://www.aston.ac.uk/careers/find-a-job/researching-employers" },
+      { name: "Connect with alumni", points: 25 }
+    ],
+    explanation: "Building a professional network early can lead to opportunities later. It also helps you learn about different career paths in biochemistry."
+  },
+  "Placement Preparation": {
+    availableYears: [2],
+    items: [
+      { name: "Have a 1-to-1 meeting with Placement Coordinator", points: 30 },
+      { name: "Attend all Placement Workshops", points: 40 },
+      { name: "Attend The Big Careers Fair and speak to 3 employers", points: 50 },
+      { name: "Take selfie with employer rep at career fair", points: 10, bonus: true }
+    ],
+    explanation: "Preparing for your placement year is crucial for securing valuable work experience."
+  },
+  "Final Year Preparation": {
+    availableYears: [4],
+    items: [
+      { name: "Apply for 3 graduate programmes", points: 60 },
+      { name: "Attend meeting with Careers Consultant", points: 30 },
+      { name: "Research employers/opportunities or postgraduate courses", points: 40 },
+      { name: "Connect with Alumni on LinkedIn", points: 20 },
+      { name: "Mentor a Year 1 or 2 student", points: 50 },
+      { name: "Record placement experience overview and tips", points: 40 },
+      { name: "Keep record of job applications", points: 30 }
+    ],
+    explanation: "Preparing for life after graduation involves a mix of job searching, networking, and sharing your experiences."
+  }
 };
 
 const levelThresholds = [100, 250, 500, 1000];
+
+const checkForAwards = (totalPoints) => {
+  const awards = [
+    { points: 100, name: "Bronze Achievement" },
+    { points: 250, name: "Silver Achievement" },
+    { points: 500, name: "Gold Achievement" },
+    { points: 1000, name: "Platinum Achievement" }
+  ];
+  return awards.filter(award => totalPoints >= award.points);
+};
 
 const Modal = ({ isOpen, onClose, onSubmit, skillTitle, itemName }) => {
     const [entryName, setEntryName] = useState('');
@@ -167,6 +175,7 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
                             <div className="flex justify-between items-center">
                                 <span>
                                     {item.name} ({item.points} pts)
+                                    {item.bonus && <span className="text-yellow-500 ml-2">(Bonus)</span>}
                                     {item.url && (
                                         <a href={item.url} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-500">
                                             Learn More
@@ -236,10 +245,12 @@ const SkillTree = () => {
     });
     const [totalPoints, setTotalPoints] = useState(0);
     const [level, setLevel] = useState(0);
+    const [awards, setAwards] = useState([]);
 
     useEffect(() => {
         const newLevel = levelThresholds.findIndex(threshold => totalPoints < threshold);
         setLevel(newLevel === -1 ? levelThresholds.length : newLevel);
+        setAwards(checkForAwards(totalPoints));
     }, [totalPoints]);
 
     const resetProgress = () => {
@@ -265,8 +276,10 @@ const SkillTree = () => {
             const newSkills = { ...prevSkills };
             const newEntry = { name: entryName, date: entryDate };
             newSkills[skillTitle].entries[itemName].push(newEntry);
-            const itemPoints = newSkills[skillTitle].items.find(item => item.name === itemName).points;
-            setTotalPoints(prev => prev + itemPoints);
+            const item = newSkills[skillTitle].items.find(item => item.name === itemName);
+            const itemPoints = item.points;
+            const bonusPoints = item.bonus ? itemPoints : 0; // Add bonus points if applicable
+            setTotalPoints(prev => prev + itemPoints + bonusPoints);
             return newSkills;
         });
     };
@@ -275,8 +288,10 @@ const SkillTree = () => {
         setSkills(prevSkills => {
             const newSkills = { ...prevSkills };
             newSkills[skillTitle].entries[itemName].splice(entryIndex, 1);
-            const itemPoints = newSkills[skillTitle].items.find(item => item.name === itemName).points;
-            setTotalPoints(prev => prev - itemPoints);
+            const item = newSkills[skillTitle].items.find(item => item.name === itemName);
+            const itemPoints = item.points;
+            const bonusPoints = item.bonus ? itemPoints : 0; // Subtract bonus points if applicable
+            setTotalPoints(prev => prev - itemPoints - bonusPoints);
             return newSkills;
         });
     };
@@ -323,6 +338,16 @@ const SkillTree = () => {
                     <span> (Next level at {levelThresholds[level]} points)</span>
                 )}
             </div>
+            {awards.length > 0 && (
+                <div className="mb-4">
+                    <h3 className="text-lg font-bold">Awards Earned:</h3>
+                    <div className="flex flex-wrap">
+                        {awards.map(award => (
+                            <span key={award.name} className="award">{award.name}</span>
+                        ))}
+                    </div>
+                </div>
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {visibleSkills.map(skillTitle => (
                     <SkillNode
