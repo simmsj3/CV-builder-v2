@@ -2,7 +2,7 @@ console.log("Script is running");
 
 const { useState, useEffect } = React;
 
-// Progress tracking and skill data
+// Progress tracking and skill data for each year
 const skillData = {
     "Year 1": {
         availableYears: [1],
@@ -24,6 +24,11 @@ const skillData = {
             { name: "Network with employers and take a selfie with their stand", points: 10 }
         ],
         explanation: "Year 2 focuses on career preparation, networking with potential employers, and participating in career development events."
+    },
+    "Year 3": {
+        availableYears: [3],
+        items: [],
+        explanation: "Year 3 is often spent on placement, so the focus is on applying what you've learned to a real-world environment."
     },
     "Year 4": {
         availableYears: [4],
@@ -87,7 +92,7 @@ function Task({ name, points, url, onComplete }) {
                         +
                     </button>
                 ) : (
-                    <span className="bg-yellow-400 text-black px-2 py-1 rounded-full">✔️ Completed!</span>
+                    <span className="completed-badge">✔️ Completed!</span>
                 )}
             </div>
         </div>
@@ -104,9 +109,8 @@ function SkillCategory({ title, data, onTaskComplete }) {
     };
 
     return (
-        <div className="skill-category">
+        <div className={`skill-category year-${data.availableYears[0]}`}>
             <div className="skill-category-title">
-                <i className="skill-category-title-icon">📘</i>
                 <h3 className="text-xl font-bold mb-3">{title}</h3>
             </div>
             <p className="mb-3">{data.explanation}</p>
@@ -137,18 +141,15 @@ function App() {
 
     return (
         <div className="container mx-auto mt-10">
-            <h1 className="text-3xl font-bold text-center mb-8">Build Your CV</h1>
-            <div className="mb-8">
-                <h2 className="text-2xl font-bold">Total Points: {totalPoints}</h2>
-                <ProgressBar completed={totalPoints} total={500} />
-            </div>
             {Object.keys(skillData).map((category) => (
-                <SkillCategory
-                    key={category}
-                    title={category}
-                    data={skillData[category]}
-                    onTaskComplete={handleTaskComplete}
-                />
+                <div className="year-section" key={category}>
+                    <h2>{category}</h2>
+                    <SkillCategory
+                        title={category}
+                        data={skillData[category]}
+                        onTaskComplete={handleTaskComplete}
+                    />
+                </div>
             ))}
             <div className="mt-10">
                 <h3 className="text-xl font-bold">Suggestions for you:</h3>
