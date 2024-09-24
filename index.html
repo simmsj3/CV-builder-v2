@@ -3,20 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4 Year CV Skill Builder</title>
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="styles.css" rel="stylesheet">
+    <title>CV Development Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container mx-auto p-8">
-        <h1 class="text-4xl font-bold text-center mb-8">4 Year CV Skill Builder</h1>
-        <div id="root"></div>
-    </div>
-    <script type="text/babel" src="script.js"></script>
+    <header>
+        <h1>CV Development Game</h1>
+        <p>Build your CV and earn points by completing tasks in different categories!</p>
+    </header>
+
+    <section id="year1">
+        <h2>Year 1</h2>
+        <ul>
+            <li><input type="checkbox" id="volunteering" onclick="updatePoints(20)"> Participate in a volunteering activity (+20 points)</li>
+            <li><input type="checkbox" id="join_society" onclick="updatePoints(10)"> Join an academic society (e.g., BioSoc) (+10 points)</li>
+            <li><input type="checkbox" id="attend_workshop" onclick="updatePoints(15)"> Attend a networking event or workshop (+15 points)</li>
+        </ul>
+    </section>
+
+    <section id="year2">
+        <h2>Year 2</h2>
+        <ul>
+            <li><input type="checkbox" id="1to1_meeting" onclick="updatePoints(15)"> Have a 1-to-1 meeting with Placement Coordinator (+15 points)</li>
+            <li><input type="checkbox" id="careers_fair" onclick="updatePoints(25)"> Attend Careers Fair & speak to 3 employers (+25 points)</li>
+        </ul>
+    </section>
+
+    <section id="year4">
+        <h2>Year 4</h2>
+        <ul>
+            <li><input type="checkbox" id="apply_grad_program" onclick="updatePoints(30)"> Apply for 3 graduate programs (+30 points)</li>
+            <li><input type="checkbox" id="research_employers" onclick="updatePoints(20)"> Research employers or postgraduate opportunities (+20 points)</li>
+        </ul>
+    </section>
+
+    <section id="points">
+        <h2>Your Points: <span id="pointsDisplay">0</span></h2>
+        <button onclick="claimReward()">Claim Reward</button>
+        <p id="rewardMessage"></p>
+    </section>
+
+    <footer>
+        <p>© 2024 University Careers & Placement Team</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
