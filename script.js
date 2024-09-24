@@ -4,19 +4,18 @@ const { useState, useEffect } = React;
 
 const skillData = {
     "Professional Presence": {
-        availableYears: [1, 2, 3, 4],
+        availableYears: [1, 2],
         items: [
             { name: "Set up LinkedIn profile", points: 20, url: "https://www.aston.ac.uk/careers/cv/resource-library" },
-            { name: "Create professional email", points: 10 }
         ],
         explanation: "A strong professional online presence showcases your seriousness about your career. LinkedIn allows you to connect with professionals, alumni, and potential employers."
     },
     "Academic Engagement": {
         availableYears: [1, 2, 3, 4],
         items: [
-            { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
             { name: "Attend departmental seminars", points: 15 },
             { name: "Participate in peer mentoring (2nd year)", points: 40 }
+             { name: "Take on a leadership role", points: 50 }
         ],
         explanation: "Engaging in academic activities beyond coursework shows genuine interest in your field and a proactive approach to learning."
     },
@@ -30,20 +29,19 @@ const skillData = {
         explanation: "Work experience and volunteering develop professional skills and demonstrate responsibility and community engagement."
     },
     "Extracurricular Activities": {
-        availableYears: [1, 2, 3, 4],
+        availableYears: [1, 2],
         items: [
             { name: "Join BioSoc or other relevant society", points: 25, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
-            { name: "Take on a leadership role", points: 50 }
-        ],
-        explanation: "Joining relevant societies helps you network with peers and develop skills specific to your field."
+                   ],
+        explanation: "Joining relevant societies helps you network with peers and develop skills specific to your field. Joining BioSoc should be the minimum you should consider"
     },
     "Skills Development": {
         availableYears: [1, 2, 3, 4],
         items: [
-            { name: "Improve top 10 in-demand skills (list to be updated)", points: 40 },
+            { name: "Improve top 10 in-demand skills (e.g. Excel, R, Python)", points: 40 },
             { name: "Take online course (e.g., bioinformatics)", points: 30 }
         ],
-        explanation: "Developing skills that are in high demand by employers increases your employability."
+        explanation: "Developing skills that are in high demand by employers increases your employability. APBI and other professional bodies often release reports describing the needs for biologists to increase their computational skills"
     },
     "External Events": {
         availableYears: [1, 2, 3, 4],
