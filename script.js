@@ -4,51 +4,40 @@ const { useState, useEffect } = React;
 
 // Progress tracking and skill data
 const skillData = {
-    "Professional Presence": {
-        availableYears: [1, 2, 3, 4],
+    "Year 1": {
+        availableYears: [1],
         items: [
-            { name: "Set up LinkedIn profile", points: 20, url: "https://www.aston.ac.uk/careers/cv/resource-library" },
-            { name: "Create professional email", points: 10 }
+            { name: "Get involved in a community project or charity", points: 20, url: "https://www.volunteering-website.com" },
+            { name: "Join BioSoc or other relevant societies", points: 15, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
+            { name: "Participate in a skills development workshop", points: 20, url: "https://www.aston.ac.uk/careers/skills-workshop" },
+            { name: "Attend networking events, seminars, or talks", points: 25, url: "https://www.aston.ac.uk/careers/events" }
         ],
-        explanation: "A strong professional online presence showcases your seriousness about your career. LinkedIn allows you to connect with professionals, alumni, and potential employers."
+        explanation: "Year 1 is about building foundational experiences and exploring opportunities that will help you grow personally and professionally."
     },
-    "Academic Engagement": {
-        availableYears: [1, 2, 3, 4],
+    "Year 2": {
+        availableYears: [2],
         items: [
-            { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
-            { name: "Attend departmental seminars", points: 15 },
-            { name: "Participate in peer mentoring (2nd year)", points: 40 }
+            { name: "Have a 1-to-1 meeting with the Placement Coordinator", points: 20, url: "https://www.aston.ac.uk/careers/placement" },
+            { name: "Attend all placement workshops", points: 25, url: "https://www.aston.ac.uk/careers/workshops" },
+            { name: "Attend The Big Careers Fair and speak to 3 employers", points: 30, url: "https://www.aston.ac.uk/careers/careers-fair" },
+            { name: "Volunteer at an organisation or project", points: 20, url: "https://www.aston.ac.uk/careers/get-experience" },
+            { name: "Network with employers and take a selfie with their stand", points: 10 }
         ],
-        explanation: "Engaging in academic activities beyond coursework shows genuine interest in your field and a proactive approach to learning."
+        explanation: "Year 2 focuses on career preparation, networking with potential employers, and participating in career development events."
     },
-    "Work Experience": {
-        availableYears: [1, 2, 3, 4],
+    "Year 4": {
+        availableYears: [4],
         items: [
-            { name: "Find part-time job", points: 40, url: "https://www.aston.ac.uk/careers/get-experience/part-time-jobs-and-volunteering" },
-            { name: "Explore summer internships", points: 60, url: "https://www.aston.ac.uk/careers/get-experience/internships" },
-            { name: "Volunteer in a community project", points: 50 }
+            { name: "Apply for 3 graduate programmes", points: 40, url: "https://www.prospects.ac.uk/graduate-jobs" },
+            { name: "Attend a meeting with a Careers Consultant", points: 30, url: "https://www.aston.ac.uk/careers/consultants" },
+            { name: "Research employers or postgraduate courses", points: 20, url: "https://www.prospects.ac.uk/postgraduate-courses" },
+            { name: "Connect with alumni on LinkedIn and professionals in your field", points: 20, url: "https://www.linkedin.com" },
+            { name: "Mentor a Year 1 or 2 student", points: 30, url: "https://www.aston.ac.uk/mentoring" },
+            { name: "Record a video overview of your placement experience", points: 25, url: "https://www.aston.ac.uk/careers/placement-video" },
+            { name: "Keep a record of your job applications", points: 15 }
         ],
-        explanation: "Gaining work experience improves your employability, confidence, and real-world skills."
+        explanation: "Year 4 emphasizes the transition to professional life or further education by applying for jobs, connecting with alumni, and reflecting on your placement experience."
     }
-};
-
-// Adding extra tasks to enhance engagement
-skillData["Leadership"] = {
-    availableYears: [2, 3, 4],
-    items: [
-        { name: "Lead a student project", points: 50 },
-        { name: "Join a leadership training program", points: 40, url: "https://www.aston.ac.uk/careers/leadership-training" }
-    ],
-    explanation: "Leadership roles demonstrate initiative and the ability to manage teams and projects."
-};
-
-skillData["Personal Development"] = {
-    availableYears: [1, 2, 3, 4],
-    items: [
-        { name: "Take an online course", points: 20, url: "https://www.coursera.org" },
-        { name: "Read a book related to your field", points: 15 }
-    ],
-    explanation: "Personal development activities show your dedication to improving yourself and staying updated in your field."
 };
 
 // Component for displaying a progress bar with enhanced visuals
