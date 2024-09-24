@@ -12,8 +12,7 @@ const initialSkills = {
         items: [
             { name: 'Set up LinkedIn profile', points: 20, entries: [] },
             { name: 'Create professional email', points: 10, entries: [] }
-        ], 
-        icon: 'briefcase', 
+        ],
         totalPoints: 0 
     },
     'Academic Engagement': { 
@@ -21,64 +20,56 @@ const initialSkills = {
             { name: 'Join BioSoc @Aston', points: 30, entries: [] },
             { name: 'Attend departmental seminars', points: 15, entries: [] },
             { name: 'Participate in peer mentoring (2nd year)', points: 40, entries: [] }
-        ], 
-        icon: 'graduation-cap', 
+        ],
         totalPoints: 0 
     },
     'Extracurricular Activities': { 
         items: [
             { name: 'Join a university club/society', points: 25, entries: [] },
             { name: 'Take on a leadership role', points: 50, entries: [] }
-        ], 
-        icon: 'users', 
+        ],
         totalPoints: 0 
     },
     'Work Experience': { 
         items: [
             { name: 'Find part-time job', points: 40, entries: [] },
             { name: 'Explore summer internships', points: 60, entries: [] }
-        ], 
-        icon: 'briefcase', 
+        ],
         totalPoints: 0 
     },
     'Volunteering': { 
         items: [
             { name: 'Volunteer in hospitals/clinics/labs', points: 50, entries: [] },
             { name: 'Participate in science outreach', points: 35, entries: [] }
-        ], 
-        icon: 'heart-handshake', 
+        ],
         totalPoints: 0 
     },
     'Skills Development': { 
         items: [
             { name: 'Take online course (e.g., bioinformatics)', points: 30, entries: [] },
             { name: 'Improve computer skills (Excel, R, Python)', points: 40, entries: [] }
-        ], 
-        icon: 'dna', 
+        ],
         totalPoints: 0 
     },
     'Networking': { 
         items: [
             { name: 'Attend career fairs', points: 20, entries: [] },
             { name: 'Connect with alumni', points: 25, entries: [] }
-        ], 
-        icon: 'globe', 
+        ],
         totalPoints: 0 
     },
     'Personal Projects': { 
         items: [
             { name: 'Start a science blog', points: 45, entries: [] },
             { name: 'Develop small research project', points: 70, entries: [] }
-        ], 
-        icon: 'presentation', 
+        ],
         totalPoints: 0 
     },
     'Professional Development': { 
         items: [
             { name: 'Attend CV writing workshop', points: 25, entries: [] },
             { name: 'Participate in mock interviews', points: 35, entries: [] }
-        ], 
-        icon: 'trophy', 
+        ],
         totalPoints: 0 
     }
 };
@@ -123,20 +114,13 @@ const Modal = ({ isOpen, onClose, onSubmit, skillTitle, itemName }) => {
     );
 };
 
-const SkillNode = ({ title, items, icon, onAddEntry, onRemoveEntry }) => {
+const SkillNode = ({ title, items, onAddEntry, onRemoveEntry }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
 
-    useEffect(() => {
-        lucide.createIcons();
-    }, []);
-
     return (
         <div className="p-4 border rounded-lg bg-white shadow-md">
-            <div className="flex items-center space-x-3 mb-3">
-                <i data-lucide={icon} className="text-blue-600"></i>
-                <h3 className="font-bold text-lg">{title}</h3>
-            </div>
+            <h3 className="font-bold text-lg mb-3">{title}</h3>
             <ul className="text-sm text-gray-600 space-y-4">
                 {items.map((item, index) => (
                     <li key={index}>
@@ -149,7 +133,7 @@ const SkillNode = ({ title, items, icon, onAddEntry, onRemoveEntry }) => {
                                 }} 
                                 className="bg-green-500 text-white p-1 rounded-full"
                             >
-                                <i data-lucide="plus"></i>
+                                +
                             </button>
                         </div>
                         {item.entries.map((entry, entryIndex) => (
@@ -159,7 +143,7 @@ const SkillNode = ({ title, items, icon, onAddEntry, onRemoveEntry }) => {
                                     onClick={() => onRemoveEntry(title, index, entryIndex)} 
                                     className="text-red-500"
                                 >
-                                    <i data-lucide="x"></i>
+                                    ×
                                 </button>
                             </div>
                         ))}
@@ -181,10 +165,6 @@ const SkillTree = () => {
     const [currentYear, setCurrentYear] = useState(1);
     const [skills, setSkills] = useState(initialSkills);
     const [totalPoints, setTotalPoints] = useState(0);
-
-    useEffect(() => {
-        lucide.createIcons();
-    }, []);
 
     const resetProgress = () => {
         setSkills(initialSkills);
@@ -224,14 +204,14 @@ const SkillTree = () => {
                 <h2 className="text-3xl font-bold text-blue-600">Biochemistry CV Skill Tree</h2>
                 <div className="flex items-center space-x-4">
                     <button onClick={() => setCurrentYear(prev => Math.max(1, prev - 1))} disabled={currentYear === 1}>
-                        <i data-lucide="chevron-left"></i>
+                        ◀
                     </button>
                     <span className="text-xl font-semibold">Year {currentYear}</span>
                     <button onClick={() => setCurrentYear(prev => Math.min(4, prev + 1))} disabled={currentYear === 4}>
-                        <i data-lucide="chevron-right"></i>
+                        ▶
                     </button>
                     <button onClick={resetProgress} className="ml-4 p-2 bg-red-500 text-white rounded-full">
-                        <i data-lucide="rotate-ccw"></i>
+                        ↺
                     </button>
                 </div>
             </div>
@@ -242,7 +222,6 @@ const SkillTree = () => {
                         key={skillTitle}
                         title={skillTitle}
                         items={skills[skillTitle].items}
-                        icon={skills[skillTitle].icon}
                         onAddEntry={addEntry}
                         onRemoveEntry={removeEntry}
                     />
@@ -252,4 +231,4 @@ const SkillTree = () => {
     );
 };
 
-ReactDOM.render(<SkillTree />, document.getElementById('root'));
+ReactDOM.render(React.createElement(SkillTree), document.getElementById('root'));
