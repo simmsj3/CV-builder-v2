@@ -1,98 +1,79 @@
-// Add this at the beginning of the file
 console.log("Script is running");
 
-// Modify the SkillTree component to include logging
-const SkillTree = () => {
-    const [currentYear, setCurrentYear] = useState(1);
-    const [skills, setSkills] = useState(initialSkills);
-    const [totalPoints, setTotalPoints] = useState(0);
-    const [level, setLevel] = useState(0);
-
-    console.log("Current skills state:", skills);
-    console.log("Total points:", totalPoints);
-    console.log("Current level:", level);
-    
 const { useState, useEffect } = React;
 
-const skillsByYear = {
-    1: ['Professional Presence', 'Academic Engagement', 'Extracurricular Activities'],
-    2: ['Work Experience', 'Volunteering', 'Skills Development'],
-    3: ['Networking', 'Personal Projects', 'Professional Development'],
-    4: ['All']
-};
-
-const initialSkills = {
-    'Professional Presence': { 
+const skillData = {
+    "Professional Presence": {
+        availableYears: [1, 2, 3, 4],
         items: [
-            { name: 'Set up LinkedIn profile', points: 20, entries: [], url: 'https://www.aston.ac.uk/careers/cv' },
-            { name: 'Create professional email', points: 10, entries: [] }
+            { name: "Set up LinkedIn profile", points: 20, url: "https://www.aston.ac.uk/careers/cv/resource-library" },
+            { name: "Create professional email", points: 10 }
         ],
-        totalPoints: 0,
         explanation: "A strong professional online presence showcases your seriousness about your career. LinkedIn allows you to connect with professionals, alumni, and potential employers."
     },
-    'Academic Engagement': { 
+    "Academic Engagement": {
+        availableYears: [1, 2, 3, 4],
         items: [
-            { name: 'Join BioSoc @Aston', points: 30, entries: [], url: 'https://www.astonsu.com/activities/clubsandsocieties/' },
-            { name: 'Attend departmental seminars', points: 15, entries: [] },
-            { name: 'Participate in peer mentoring (2nd year)', points: 40, entries: [] }
+            { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
+            { name: "Attend departmental seminars", points: 15 },
+            { name: "Participate in peer mentoring (2nd year)", points: 40 }
         ],
-        totalPoints: 0,
         explanation: "Engaging in academic activities beyond coursework shows genuine interest in your field and a proactive approach to learning."
     },
-    'Extracurricular Activities': { 
+    "Extracurricular Activities": {
+        availableYears: [1, 2, 3, 4],
         items: [
-            { name: 'Join a university club/society', points: 25, entries: [], url: 'https://www.astonsu.com/activities/clubsandsocieties/' },
-            { name: 'Take on a leadership role', points: 50, entries: [] }
+            { name: "Join a university club/society", points: 25, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
+            { name: "Take on a leadership role", points: 50 }
         ],
-        totalPoints: 0,
         explanation: "Extracurricular activities develop soft skills like teamwork, communication, and time management. Leadership roles provide valuable experience in organizing and managing people and projects."
     },
-    'Work Experience': { 
+    "Work Experience": {
+        availableYears: [1, 2, 3, 4],
         items: [
-            { name: 'Find part-time job', points: 40, entries: [], url: 'https://www.aston.ac.uk/careers/get-experience/part-time-jobs-and-volunteering' },
-            { name: 'Explore summer internships', points: 60, entries: [], url: 'https://www.aston.ac.uk/careers/get-experience/internships' }
+            { name: "Find part-time job", points: 40, url: "https://www.aston.ac.uk/careers/get-experience/part-time-jobs-and-volunteering" },
+            { name: "Explore summer internships", points: 60, url: "https://www.aston.ac.uk/careers/get-experience/internships" }
         ],
-        totalPoints: 0,
         explanation: "Work experience, even if not directly related to biochemistry, develops professional skills and demonstrates responsibility and time management."
     },
-    'Volunteering': { 
+    "Volunteering": {
+        availableYears: [1, 2, 3, 4],
         items: [
-            { name: 'Volunteer in hospitals/clinics/labs', points: 50, entries: [], url: 'https://www.aston.ac.uk/careers/get-experience/part-time-jobs-and-volunteering' },
-            { name: 'Participate in science outreach', points: 35, entries: [] }
+            { name: "Volunteer in hospitals/clinics/labs", points: 50, url: "https://www.aston.ac.uk/careers/get-experience/part-time-jobs-and-volunteering" },
+            { name: "Participate in science outreach", points: 35 }
         ],
-        totalPoints: 0,
         explanation: "Volunteering shows commitment to your community and your field. It can provide hands-on experience in scientific or healthcare settings."
     },
-    'Skills Development': { 
+    "Skills Development": {
+        availableYears: [1, 2, 3, 4],
         items: [
-            { name: 'Take online course (e.g., bioinformatics)', points: 30, entries: [] },
-            { name: 'Improve computer skills (Excel, R, Python)', points: 40, entries: [] }
+            { name: "Take online course (e.g., bioinformatics)", points: 30 },
+            { name: "Improve computer skills (Excel, R, Python)", points: 40 }
         ],
-        totalPoints: 0,
         explanation: "Developing technical skills beyond those taught in your courses makes you more versatile and valuable to potential employers."
     },
-    'Networking': { 
+    "Networking": {
+        availableYears: [2, 3, 4],
         items: [
-            { name: 'Attend career fairs', points: 20, entries: [], url: 'https://www.aston.ac.uk/careers/find-a-job/researching-employers' },
-            { name: 'Connect with alumni', points: 25, entries: [] }
+            { name: "Attend career fairs", points: 20, url: "https://www.aston.ac.uk/careers/find-a-job/researching-employers" },
+            { name: "Connect with alumni", points: 25 }
         ],
-        totalPoints: 0,
         explanation: "Building a professional network early can lead to opportunities later. It also helps you learn about different career paths in biochemistry."
     },
-    'Personal Projects': { 
+    "Personal Projects": {
+        availableYears: [2, 3, 4],
         items: [
-            { name: 'Start a science blog', points: 45, entries: [] },
-            { name: 'Develop small research project', points: 70, entries: [] }
+            { name: "Start a science blog", points: 45 },
+            { name: "Develop small research project", points: 70 }
         ],
-        totalPoints: 0,
         explanation: "Personal projects showcase your initiative, creativity, and genuine interest in biochemistry beyond coursework."
     },
-    'Professional Development': { 
+    "Professional Development": {
+        availableYears: [2, 3, 4],
         items: [
-            { name: 'Attend CV writing workshop', points: 25, entries: [], url: 'https://www.aston.ac.uk/careers/cv' },
-            { name: 'Participate in mock interviews', points: 35, entries: [], url: 'https://www.aston.ac.uk/careers/cv' }
+            { name: "Attend CV writing workshop", points: 25, url: "https://www.aston.ac.uk/careers/cv" },
+            { name: "Participate in mock interviews", points: 35, url: "https://www.aston.ac.uk/careers/cv" }
         ],
-        totalPoints: 0,
         explanation: "These activities help you present yourself more effectively to potential employers."
     }
 };
@@ -139,7 +120,7 @@ const Modal = ({ isOpen, onClose, onSubmit, skillTitle, itemName }) => {
     );
 };
 
-const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry }) => {
+const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entries }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [showExplanation, setShowExplanation] = useState(false);
@@ -176,11 +157,11 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry }) => 
                                 +
                             </button>
                         </div>
-                        {item.entries.map((entry, entryIndex) => (
+                        {entries[item.name] && entries[item.name].map((entry, entryIndex) => (
                             <div key={entryIndex} className="ml-4 mt-2 flex items-center justify-between">
                                 <span>{entry.name} - {entry.date}</span>
                                 <button 
-                                    onClick={() => onRemoveEntry(title, index, entryIndex)} 
+                                    onClick={() => onRemoveEntry(title, item.name, entryIndex)} 
                                     className="text-red-500"
                                 >
                                     ×
@@ -203,7 +184,19 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry }) => 
 
 const SkillTree = () => {
     const [currentYear, setCurrentYear] = useState(1);
-    const [skills, setSkills] = useState(initialSkills);
+    const [skills, setSkills] = useState(() => {
+        const initialSkills = {};
+        Object.keys(skillData).forEach(skillTitle => {
+            initialSkills[skillTitle] = {
+                ...skillData[skillTitle],
+                entries: skillData[skillTitle].items.reduce((acc, item) => {
+                    acc[item.name] = [];
+                    return acc;
+                }, {})
+            };
+        });
+        return initialSkills;
+    });
     const [totalPoints, setTotalPoints] = useState(0);
     const [level, setLevel] = useState(0);
 
@@ -213,7 +206,19 @@ const SkillTree = () => {
     }, [totalPoints]);
 
     const resetProgress = () => {
-        setSkills(initialSkills);
+        setSkills(prevSkills => {
+            const resetSkills = {};
+            Object.keys(prevSkills).forEach(skillTitle => {
+                resetSkills[skillTitle] = {
+                    ...prevSkills[skillTitle],
+                    entries: Object.keys(prevSkills[skillTitle].entries).reduce((acc, itemName) => {
+                        acc[itemName] = [];
+                        return acc;
+                    }, {})
+                };
+            });
+            return resetSkills;
+        });
         setTotalPoints(0);
         setCurrentYear(1);
     };
@@ -221,29 +226,31 @@ const SkillTree = () => {
     const addEntry = (skillTitle, itemName, entryName, entryDate) => {
         setSkills(prevSkills => {
             const newSkills = { ...prevSkills };
-            const itemIndex = newSkills[skillTitle].items.findIndex(item => item.name === itemName);
-            if (itemIndex !== -1) {
-                const newEntry = { name: entryName, date: entryDate };
-                newSkills[skillTitle].items[itemIndex].entries.push(newEntry);
-                newSkills[skillTitle].totalPoints += newSkills[skillTitle].items[itemIndex].points;
-                setTotalPoints(prev => prev + newSkills[skillTitle].items[itemIndex].points);
-            }
+            const newEntry = { name: entryName, date: entryDate };
+            newSkills[skillTitle].entries[itemName].push(newEntry);
+            const itemPoints = newSkills[skillTitle].items.find(item => item.name === itemName).points;
+            setTotalPoints(prev => prev + itemPoints);
             return newSkills;
         });
     };
 
-    const removeEntry = (skillTitle, itemIndex, entryIndex) => {
+    const removeEntry = (skillTitle, itemName, entryIndex) => {
         setSkills(prevSkills => {
             const newSkills = { ...prevSkills };
-            const removedPoints = newSkills[skillTitle].items[itemIndex].points;
-            newSkills[skillTitle].items[itemIndex].entries.splice(entryIndex, 1);
-            newSkills[skillTitle].totalPoints -= removedPoints;
-            setTotalPoints(prev => prev - removedPoints);
+            newSkills[skillTitle].entries[itemName].splice(entryIndex, 1);
+            const itemPoints = newSkills[skillTitle].items.find(item => item.name === itemName).points;
+            setTotalPoints(prev => prev - itemPoints);
             return newSkills;
         });
     };
 
-    const visibleSkills = currentYear === 4 ? Object.keys(skills) : skillsByYear[currentYear];
+    const visibleSkills = Object.keys(skills).filter(skillTitle => 
+        skills[skillTitle].availableYears.includes(currentYear)
+    );
+
+    console.log("Current skills state:", skills);
+    console.log("Total points:", totalPoints);
+    console.log("Current level:", level);
 
     return (
         <div className="p-6 max-w-6xl mx-auto bg-gray-100 shadow-lg rounded-xl">
@@ -275,6 +282,7 @@ const SkillTree = () => {
                         title={skillTitle}
                         items={skills[skillTitle].items}
                         explanation={skills[skillTitle].explanation}
+                        entries={skills[skillTitle].entries}
                         onAddEntry={addEntry}
                         onRemoveEntry={removeEntry}
                     />
@@ -286,5 +294,3 @@ const SkillTree = () => {
 
 console.log("Rendering SkillTree component");
 ReactDOM.render(React.createElement(SkillTree), document.getElementById('root'));
-
-
