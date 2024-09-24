@@ -14,7 +14,8 @@ const skillData = {
     "Academic Engagement": {
         availableYears: [1, 2, 3, 4],
         items: [
-                    { name: "Attend departmental seminars", points: 15 },
+            { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
+            { name: "Attend departmental seminars", points: 15 },
             { name: "Participate in peer mentoring (2nd year)", points: 40 }
         ],
         explanation: "Engaging in academic activities beyond coursework shows genuine interest in your field and a proactive approach to learning."
@@ -22,11 +23,10 @@ const skillData = {
     "Extracurricular Activities": {
         availableYears: [1, 2, 3, 4],
         items: [
-             { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
             { name: "Join a university club/society", points: 25, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
             { name: "Take on a leadership role", points: 50 }
         ],
-        explanation: "Extracurricular activities develop soft skills like teamwork, communication, and time management. Leadership roles provide valuable experience in organizing and managing people and projects. Ideally, you should consider joining BioSoc as a minimum in this category. Biochemical Society provide free events for student members and also provide pots of money to apply for different things. Well worth it!"
+        explanation: "Extracurricular activities develop soft skills like teamwork, communication, and time management. Leadership roles provide valuable experience in organizing and managing people and projects."
     },
     "Work Experience": {
         availableYears: [1, 2, 3, 4],
@@ -53,7 +53,7 @@ const skillData = {
         explanation: "Developing technical skills beyond those taught in your courses makes you more versatile and valuable to potential employers."
     },
     "Networking": {
-        availableYears: [2, 3, 4],
+        availableYears: [1, 2, 3, 4],
         items: [
             { name: "Attend career fairs", points: 20, url: "https://www.aston.ac.uk/careers/find-a-job/researching-employers" },
             { name: "Connect with alumni", points: 25 }
@@ -69,12 +69,22 @@ const skillData = {
         explanation: "Personal projects showcase your initiative, creativity, and genuine interest in biochemistry beyond coursework."
     },
     "Professional Development": {
-        availableYears: [2, 3, 4],
+        availableYears: [1, 2, 3, 4],
         items: [
             { name: "Attend CV writing workshop", points: 25, url: "https://www.aston.ac.uk/careers/cv" },
             { name: "Participate in mock interviews", points: 35, url: "https://www.aston.ac.uk/careers/cv" }
         ],
         explanation: "These activities help you present yourself more effectively to potential employers."
+    },
+    "Placement Preparation": {
+        availableYears: [1, 2, 3, 4],
+        items: [
+            { name: "Attend placement information session", points: 30, url: "https://www.aston.ac.uk/careers/placements" },
+            { name: "Contact Careers and Placements team", points: 20, url: "https://www.aston.ac.uk/careers/contact-us", periodic: true, periodDays: 90 },
+            { name: "Search for placement opportunities", points: 40, url: "https://www.aston.ac.uk/careers/placements", periodic: true, periodDays: 30 },
+            { name: "Attend employer presentation", points: 25 }
+        ],
+        explanation: "Preparing for your placement year is crucial. Regular engagement with the Careers and Placements team and consistent searching for opportunities will greatly enhance your chances of securing a valuable placement."
     }
 };
 
@@ -120,10 +130,17 @@ const Modal = ({ isOpen, onClose, onSubmit, skillTitle, itemName }) => {
     );
 };
 
-const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entries }) => {
+const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entries, currentYear }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [showExplanation, setShowExplanation] = useState(false);
+
+    const getDaysSinceLastEntry = (itemEntries) => {
+        if (itemEntries.length === 0) return Infinity;
+        const lastEntryDate = new Date(itemEntries[itemEntries.length - 1].date);
+        const today = new Date();
+        return Math.floor((today - lastEntryDate) / (1000 * 60 * 60 * 24));
+    };
 
     return (
         <div className="p-4 border rounded-lg bg-white shadow-md">
@@ -136,40 +153,50 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
             </button>
             {showExplanation && <p className="text-sm mb-3">{explanation}</p>}
             <ul className="text-sm text-gray-600 space-y-4">
-                {items.map((item, index) => (
-                    <li key={index}>
-                        <div className="flex justify-between items-center">
-                            <span>
-                                {item.name} ({item.points} pts)
-                                {item.url && (
-                                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-500">
-                                        Learn More
-                                    </a>
-                                )}
-                            </span>
-                            <button 
-                                onClick={() => {
-                                    setSelectedItem(item.name);
-                                    setModalOpen(true);
-                                }} 
-                                className="bg-green-500 text-white p-1 rounded-full"
-                            >
-                                +
-                            </button>
-                        </div>
-                        {entries[item.name] && entries[item.name].map((entry, entryIndex) => (
-                            <div key={entryIndex} className="ml-4 mt-2 flex items-center justify-between">
-                                <span>{entry.name} - {entry.date}</span>
+                {items.map((item, index) => {
+                    const daysSinceLastEntry = getDaysSinceLastEntry(entries[item.name]);
+                    const isOverdue = item.periodic && daysSinceLastEntry > item.periodDays;
+                    const emphasizeYear2 = currentYear === 2 && title === "Placement Preparation";
+                    return (
+                        <li key={index} className={emphasizeYear2 ? "font-bold" : ""}>
+                            <div className="flex justify-between items-center">
+                                <span>
+                                    {item.name} ({item.points} pts)
+                                    {item.url && (
+                                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-500">
+                                            Learn More
+                                        </a>
+                                    )}
+                                    {isOverdue && (
+                                        <span className="ml-2 text-red-500">
+                                            Overdue! ({daysSinceLastEntry} days since last entry)
+                                        </span>
+                                    )}
+                                </span>
                                 <button 
-                                    onClick={() => onRemoveEntry(title, item.name, entryIndex)} 
-                                    className="text-red-500"
+                                    onClick={() => {
+                                        setSelectedItem(item.name);
+                                        setModalOpen(true);
+                                    }} 
+                                    className="bg-green-500 text-white p-1 rounded-full"
                                 >
-                                    ×
+                                    +
                                 </button>
                             </div>
-                        ))}
-                    </li>
-                ))}
+                            {entries[item.name] && entries[item.name].map((entry, entryIndex) => (
+                                <div key={entryIndex} className="ml-4 mt-2 flex items-center justify-between">
+                                    <span>{entry.name} - {entry.date}</span>
+                                    <button 
+                                        onClick={() => onRemoveEntry(title, item.name, entryIndex)} 
+                                        className="text-red-500"
+                                    >
+                                        ×
+                                    </button>
+                                </div>
+                            ))}
+                        </li>
+                    );
+                })}
             </ul>
             <Modal 
                 isOpen={modalOpen} 
@@ -285,6 +312,7 @@ const SkillTree = () => {
                         entries={skills[skillTitle].entries}
                         onAddEntry={addEntry}
                         onRemoveEntry={removeEntry}
+                        currentYear={currentYear}
                     />
                 ))}
             </div>
