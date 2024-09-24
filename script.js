@@ -3,144 +3,102 @@ console.log("Script is running");
 const { useState, useEffect } = React;
 
 const skillData = {
-  "Professional Presence": {
-    availableYears: [1, 2, 3, 4],
-    items: [
-      { name: "Set up LinkedIn profile", points: 20, url: "https://www.aston.ac.uk/careers/cv/resource-library" },
-      { name: "Create professional email", points: 10 }
-    ],
-    explanation: "A strong professional online presence showcases your seriousness about your career. LinkedIn allows you to connect with professionals, alumni, and potential employers."
-  },
-  "Academic Engagement": {
-    availableYears: [1, 2, 3, 4],
-    items: [
-      { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
-      { name: "Attend departmental seminars", points: 15 },
-      { name: "Participate in peer mentoring (2nd year)", points: 40 }
-    ],
-    explanation: "Engaging in academic activities beyond coursework shows genuine interest in your field and a proactive approach to learning."
-  },
-  "Work Experience": {
-    availableYears: [1, 2, 3, 4],
-    items: [
-      { name: "Find part-time job", points: 40, url: "https://www.aston.ac.uk/careers/get-experience/part-time-jobs-and-volunteering" },
-      { name: "Explore summer internships", points: 60, url: "https://www.aston.ac.uk/careers/get-experience/internships" },
-      { name: "Volunteer in a community project, charity or organization", points: 50 }
-    ],
-    explanation: "Work experience and volunteering develop professional skills and demonstrate responsibility and community engagement."
-  },
-  "Extracurricular Activities": {
-    availableYears: [1, 2, 3, 4],
-    items: [
-      { name: "Join BioSoc or other relevant society", points: 25, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
-      { name: "Take on a leadership role", points: 50 }
-    ],
-    explanation: "Joining relevant societies helps you network with peers and develop skills specific to your field."
-  },
-  "Skills Development": {
-    availableYears: [1, 2, 3, 4],
-    items: [
-      { name: "Improve top 10 in-demand skills (list to be updated)", points: 40 },
-      { name: "Take online course (e.g., bioinformatics)", points: 30 }
-    ],
-    explanation: "Developing skills that are in high demand by employers increases your employability."
-  },
-  "External Events": {
-    availableYears: [1, 2, 3, 4],
-    items: [
-      { name: "Attend networking event", points: 20 },
-      { name: "Attend seminar or inaugural professorial talk", points: 15 }
-    ],
-    explanation: "Attending events outside your curriculum broadens your knowledge and professional network."
-  },
-  "Networking": {
-    availableYears: [1, 2, 3, 4],
-    items: [
-      { name: "Attend career fairs", points: 20, url: "https://www.aston.ac.uk/careers/find-a-job/researching-employers" },
-      { name: "Connect with alumni", points: 25 }
-    ],
-    explanation: "Building a professional network early can lead to opportunities later. It also helps you learn about different career paths in biochemistry."
-  },
-  "Placement Preparation": {
-    availableYears: [2],
-    items: [
-      { name: "Have a 1-to-1 meeting with Placement Coordinator", points: 30 },
-      { name: "Attend all Placement Workshops", points: 40 },
-      { name: "Attend The Big Careers Fair and speak to 3 employers", points: 50 },
-      { name: "Take selfie with employer rep at career fair", points: 10, bonus: true }
-    ],
-    explanation: "Preparing for your placement year is crucial for securing valuable work experience."
-  },
-  "Final Year Preparation": {
-    availableYears: [4],
-    items: [
-      { name: "Apply for 3 graduate programmes", points: 60 },
-      { name: "Attend meeting with Careers Consultant", points: 30 },
-      { name: "Research employers/opportunities or postgraduate courses", points: 40 },
-      { name: "Connect with Alumni on LinkedIn", points: 20 },
-      { name: "Mentor a Year 1 or 2 student", points: 50 },
-      { name: "Record placement experience overview and tips", points: 40 },
-      { name: "Keep record of job applications", points: 30 }
-    ],
-    explanation: "Preparing for life after graduation involves a mix of job searching, networking, and sharing your experiences."
-  }
+    "Professional Presence": {
+        availableYears: [1, 2, 3, 4],
+        items: [
+            { name: "Set up LinkedIn profile", points: 20, url: "https://www.aston.ac.uk/careers/cv/resource-library" },
+            { name: "Create professional email", points: 10 }
+        ],
+        explanation: "A strong professional online presence showcases your seriousness about your career. LinkedIn allows you to connect with professionals, alumni, and potential employers."
+    },
+    "Academic Engagement": {
+        availableYears: [1, 2, 3, 4],
+        items: [
+            { name: "Join BioSoc @Aston", points: 30, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
+            { name: "Attend departmental seminars", points: 15 },
+            { name: "Participate in peer mentoring (2nd year)", points: 40 }
+        ],
+        explanation: "Engaging in academic activities beyond coursework shows genuine interest in your field and a proactive approach to learning."
+    },
+    "Work Experience": {
+        availableYears: [1, 2, 3, 4],
+        items: [
+            { name: "Find part-time job", points: 40, url: "https://www.aston.ac.uk/careers/get-experience/part-time-jobs-and-volunteering" },
+            { name: "Explore summer internships", points: 60, url: "https://www.aston.ac.uk/careers/get-experience/internships" },
+            { name: "Volunteer in a community project, charity or organization", points: 50 }
+        ],
+        explanation: "Work experience and volunteering develop professional skills and demonstrate responsibility and community engagement."
+    },
+    "Extracurricular Activities": {
+        availableYears: [1, 2, 3, 4],
+        items: [
+            { name: "Join BioSoc or other relevant society", points: 25, url: "https://www.astonsu.com/activities/clubsandsocieties/" },
+            { name: "Take on a leadership role", points: 50 }
+        ],
+        explanation: "Joining relevant societies helps you network with peers and develop skills specific to your field."
+    },
+    "Skills Development": {
+        availableYears: [1, 2, 3, 4],
+        items: [
+            { name: "Improve top 10 in-demand skills (list to be updated)", points: 40 },
+            { name: "Take online course (e.g., bioinformatics)", points: 30 }
+        ],
+        explanation: "Developing skills that are in high demand by employers increases your employability."
+    },
+    "External Events": {
+        availableYears: [1, 2, 3, 4],
+        items: [
+            { name: "Attend networking event", points: 20 },
+            { name: "Attend seminar or inaugural professorial talk", points: 15 }
+        ],
+        explanation: "Attending events outside your curriculum broadens your knowledge and professional network."
+    },
+    "Networking": {
+        availableYears: [1, 2, 3, 4],
+        items: [
+            { name: "Attend career fairs", points: 20, url: "https://www.aston.ac.uk/careers/find-a-job/researching-employers" },
+            { name: "Connect with alumni", points: 25 }
+        ],
+        explanation: "Building a professional network early can lead to opportunities later. It also helps you learn about different career paths in biochemistry."
+    },
+    "Placement Preparation": {
+        availableYears: [2],
+        items: [
+            { name: "Have a 1-to-1 meeting with Placement Coordinator", points: 30 },
+            { name: "Attend all Placement Workshops", points: 40 },
+            { name: "Attend The Big Careers Fair and speak to 3 employers", points: 50 },
+            { name: "Take selfie with employer rep at career fair", points: 10, bonus: true }
+        ],
+        explanation: "Preparing for your placement year is crucial for securing valuable work experience."
+    },
+    "Final Year Preparation": {
+        availableYears: [4],
+        items: [
+            { name: "Apply for 3 graduate programmes", points: 60 },
+            { name: "Attend meeting with Careers Consultant", points: 30 },
+            { name: "Research employers/opportunities or postgraduate courses", points: 40 },
+            { name: "Connect with Alumni on LinkedIn", points: 20 },
+            { name: "Mentor a Year 1 or 2 student", points: 50 },
+            { name: "Record placement experience overview and tips", points: 40 },
+            { name: "Keep record of job applications", points: 30 }
+        ],
+        explanation: "Preparing for life after graduation involves a mix of job searching, networking, and sharing your experiences."
+    }
 };
 
 const levelThresholds = [100, 250, 500, 1000];
 
 const checkForAwards = (totalPoints) => {
-  const awards = [
-    { points: 100, name: "Bronze Achievement" },
-    { points: 250, name: "Silver Achievement" },
-    { points: 500, name: "Gold Achievement" },
-    { points: 1000, name: "Platinum Achievement" }
-  ];
-  return awards.filter(award => totalPoints >= award.points);
-};
-
-const Modal = ({ isOpen, onClose, onSubmit, skillTitle, itemName }) => {
-    const [entryName, setEntryName] = useState('');
-    const [entryDate, setEntryDate] = useState('');
-
-    if (!isOpen) return null;
-
-    return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white p-6 rounded-lg">
-                <h3 className="text-lg font-bold mb-4">Add Entry for {itemName}</h3>
-                <input
-                    type="text"
-                    placeholder="Entry name"
-                    value={entryName}
-                    onChange={(e) => setEntryName(e.target.value)}
-                    className="w-full p-2 mb-4 border rounded"
-                />
-                <input
-                    type="date"
-                    value={entryDate}
-                    onChange={(e) => setEntryDate(e.target.value)}
-                    className="w-full p-2 mb-4 border rounded"
-                />
-                <div className="flex justify-end space-x-2">
-                    <button onClick={onClose} className="px-4 py-2 bg-gray-200 rounded">Cancel</button>
-                    <button 
-                        onClick={() => {
-                            onSubmit(skillTitle, itemName, entryName, entryDate);
-                            onClose();
-                        }} 
-                        className="px-4 py-2 bg-blue-500 text-white rounded"
-                    >
-                        Add Entry
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
+    const awards = [
+        { points: 100, name: "Bronze Achievement" },
+        { points: 250, name: "Silver Achievement" },
+        { points: 500, name: "Gold Achievement" },
+        { points: 1000, name: "Platinum Achievement" }
+    ];
+    return awards.filter(award => totalPoints >= award.points);
 };
 
 const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entries, currentYear }) => {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
     const [showExplanation, setShowExplanation] = useState(false);
 
     const getDaysSinceLastEntry = (itemEntries) => {
@@ -151,7 +109,7 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
     };
 
     return (
-        <div className="p-4 border rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-lg">
+        <div className="skill-node p-4 border rounded-lg bg-white shadow-md">
             <h3 className="font-bold text-lg mb-3">{title}</h3>
             <button 
                 onClick={() => setShowExplanation(!showExplanation)}
@@ -160,7 +118,7 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
                 {showExplanation ? 'Hide' : 'Show'} Explanation
             </button>
             {showExplanation && (
-                <p className="text-sm mb-3 transition-all duration-300">
+                <p className="text-sm mb-3 animate-slide-in">
                     {explanation}
                 </p>
             )}
@@ -183,17 +141,14 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
                                     )}
                                 </span>
                                 <button 
-                                    onClick={() => {
-                                        setSelectedItem(item.name);
-                                        setModalOpen(true);
-                                    }} 
+                                    onClick={() => onAddEntry(title, item.name)}
                                     className="bg-green-500 text-white p-1 rounded-full"
                                 >
                                     +
                                 </button>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
-                                <div className="bg-blue-600 h-2.5 rounded-full transition-all duration-300" style={{ width: `${progress * 100}%` }}></div>
+                                <div className="bg-blue-600 h-2.5 rounded-full progress-bar" style={{ width: `${progress * 100}%` }}></div>
                             </div>
                             {isOverdue && (
                                 <span className="text-red-500 text-xs">
@@ -201,7 +156,7 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
                                 </span>
                             )}
                             {entries[item.name] && entries[item.name].map((entry, entryIndex) => (
-                                <div key={entryIndex} className="ml-4 mt-2 flex items-center justify-between">
+                                <div key={entryIndex} className="ml-4 mt-2 flex items-center justify-between animate-slide-in">
                                     <span>{entry.name} - {entry.date}</span>
                                     <button 
                                         onClick={() => onRemoveEntry(title, item.name, entryIndex)} 
@@ -215,15 +170,6 @@ const SkillNode = ({ title, items, explanation, onAddEntry, onRemoveEntry, entri
                     );
                 })}
             </ul>
-            {modalOpen && (
-                <Modal 
-                    isOpen={modalOpen} 
-                    onClose={() => setModalOpen(false)} 
-                    onSubmit={onAddEntry}
-                    skillTitle={title}
-                    itemName={selectedItem}
-                />
-            )}
         </div>
     );
 };
@@ -249,9 +195,17 @@ const SkillTree = () => {
 
     useEffect(() => {
         const newLevel = levelThresholds.findIndex(threshold => totalPoints < threshold);
+        const newAwards = checkForAwards(totalPoints);
+        if (newLevel !== level || newAwards.length > awards.length) {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
         setLevel(newLevel === -1 ? levelThresholds.length : newLevel);
-        setAwards(checkForAwards(totalPoints));
-    }, [totalPoints]);
+        setAwards(newAwards);
+    }, [totalPoints, level, awards]);
 
     const resetProgress = () => {
         setSkills(prevSkills => {
@@ -271,17 +225,21 @@ const SkillTree = () => {
         setCurrentYear(1);
     };
 
-    const addEntry = (skillTitle, itemName, entryName, entryDate) => {
-        setSkills(prevSkills => {
-            const newSkills = { ...prevSkills };
-            const newEntry = { name: entryName, date: entryDate };
-            newSkills[skillTitle].entries[itemName].push(newEntry);
-            const item = newSkills[skillTitle].items.find(item => item.name === itemName);
-            const itemPoints = item.points;
-            const bonusPoints = item.bonus ? itemPoints : 0; // Add bonus points if applicable
-            setTotalPoints(prev => prev + itemPoints + bonusPoints);
-            return newSkills;
-        });
+    const addEntry = (skillTitle, itemName) => {
+        const entryName = prompt("Enter a name for this entry:");
+        const entryDate = prompt("Enter the date of completion (YYYY-MM-DD):");
+        if (entryName && entryDate) {
+            setSkills(prevSkills => {
+                const newSkills = { ...prevSkills };
+                const newEntry = { name: entryName, date: entryDate };
+                newSkills[skillTitle].entries[itemName].push(newEntry);
+                const item = newSkills[skillTitle].items.find(item => item.name === itemName);
+                const itemPoints = item.points;
+                const bonusPoints = item.bonus ? itemPoints : 0;
+                setTotalPoints(prev => prev + itemPoints + bonusPoints);
+                return newSkills;
+            });
+        }
     };
 
     const removeEntry = (skillTitle, itemName, entryIndex) => {
@@ -290,7 +248,7 @@ const SkillTree = () => {
             newSkills[skillTitle].entries[itemName].splice(entryIndex, 1);
             const item = newSkills[skillTitle].items.find(item => item.name === itemName);
             const itemPoints = item.points;
-            const bonusPoints = item.bonus ? itemPoints : 0; // Subtract bonus points if applicable
+            const bonusPoints = item.bonus ? itemPoints : 0;
             setTotalPoints(prev => prev - itemPoints - bonusPoints);
             return newSkills;
         });
@@ -300,13 +258,9 @@ const SkillTree = () => {
         skills[skillTitle].availableYears.includes(currentYear)
     );
 
-    console.log("Current skills state:", skills);
-    console.log("Total points:", totalPoints);
-    console.log("Current level:", level);
-
     return (
         <div className="p-6 max-w-6xl mx-auto bg-gray-100 shadow-lg rounded-xl">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-6 animate-slide-in">
                 <h2 className="text-3xl font-bold text-blue-600">Biochemistry CV Skill Tree</h2>
                 <div className="flex items-center space-x-4">
                     <button 
@@ -332,14 +286,14 @@ const SkillTree = () => {
                     </button>
                 </div>
             </div>
-            <div className="mb-4 text-xl font-semibold">
+            <div className="mb-4 text-xl font-semibold animate-slide-in">
                 Total Points: {totalPoints} | Level: {level}
                 {level < levelThresholds.length && (
                     <span> (Next level at {levelThresholds[level]} points)</span>
                 )}
             </div>
             {awards.length > 0 && (
-                <div className="mb-4">
+                <div className="mb-4 animate-slide-in">
                     <h3 className="text-lg font-bold">Awards Earned:</h3>
                     <div className="flex flex-wrap">
                         {awards.map(award => (
