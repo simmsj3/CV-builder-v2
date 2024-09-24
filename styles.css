@@ -1,42 +1,65 @@
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Enhancing the skill-category boxes */
+.skill-category {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: #f9fafb; /* Light background for boxes */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s ease;
 }
 
-@keyframes slideIn {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+.skill-category:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
 }
 
-.skill-node {
-  animation: fadeIn 0.5s ease-out;
-  transition: all 0.3s ease;
-}
-
-.skill-node:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Progress Bar Styling */
+.progress-bar-container {
+    background-color: #e0e0e0; /* Lighter background */
+    border-radius: 10px;
+    height: 12px;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .progress-bar {
-  transition: width 0.5s ease-in-out;
+    background: linear-gradient(90deg, #4caf50, #81c784); /* Green gradient */
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
 }
 
-.award {
-  background-color: #ffd700;
-  color: #000;
-  padding: 5px 10px;
-  border-radius: 15px;
-  display: inline-block;
-  margin: 5px;
-  font-weight: bold;
-  transition: all 0.3s ease;
+.progress-bar-text {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+    text-align: center;
 }
 
-.award:hover {
-  transform: scale(1.1);
+/* Buttons to complete task */
+.complete-task-btn {
+    background-color: #00bcd4; /* Brighter button */
+    color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.animate-slide-in {
-  animation: slideIn 0.5s ease-out;
+.complete-task-btn:hover {
+    background-color: #0097a7; /* Darker color on hover */
+}
+
+/* Box title icons */
+.skill-category-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.skill-category-title-icon {
+    font-size: 20px;
+    margin-right: 10px;
+    color: #007bff; /* Icon color */
 }
