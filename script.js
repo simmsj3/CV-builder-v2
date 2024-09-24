@@ -1,3 +1,17 @@
+// Add this at the beginning of the file
+console.log("Script is running");
+
+// Modify the SkillTree component to include logging
+const SkillTree = () => {
+    const [currentYear, setCurrentYear] = useState(1);
+    const [skills, setSkills] = useState(initialSkills);
+    const [totalPoints, setTotalPoints] = useState(0);
+    const [level, setLevel] = useState(0);
+
+    console.log("Current skills state:", skills);
+    console.log("Total points:", totalPoints);
+    console.log("Current level:", level);
+    
 const { useState, useEffect } = React;
 
 const skillsByYear = {
@@ -270,4 +284,7 @@ const SkillTree = () => {
     );
 };
 
+console.log("Rendering SkillTree component");
 ReactDOM.render(React.createElement(SkillTree), document.getElementById('root'));
+
+
